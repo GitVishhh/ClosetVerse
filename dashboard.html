@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ClosetVerse | Dashboard</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #3a568a;
+      --secondary: #632525;
+      --text-dark: #1e1e1e;
+      --text-light: #f4f4f4;
+      --card-dark: rgba(0, 0, 0, 0.4);
+      --card-light: rgba(255, 255, 255, 0.5);
+      --accent: #f6fafa;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      transition: background 0.5s ease, color 0.5s ease;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      color: var(--text-light);
+    }
+
+    body.light-mode {
+      background: linear-gradient(to right, #cfb1b1, #b3a8a8);
+      color: var(--text-dark);
+    }
+
+    nav.navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.3);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    body.light-mode nav.navbar {
+      background: rgba(109, 44, 44, 0.6);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .logo i {
+      color: #fff;
+    }
+
+    .theme-toggle {
+      font-size: 1.3rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: inherit;
+      transition: transform 0.3s;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.2);
+    }
+
+    .dashboard-container {
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .dashboard-box {
+      background: var(--card-dark);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 900px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: background 0.5s;
+    }
+
+    body.light-mode .dashboard-box {
+      background: var(--card-light);
+    }
+
+    .welcome-message {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .dashboard-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid transparent;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .feature-card h3 {
+      margin: 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .logout-btn {
+      background: #ff4d4d;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      color: white;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .logout-btn:hover {
+      background: #e63946;
+    }
+
+    #upload-section {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px dashed var(--accent);
+      border-radius: 12px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+
+    #dropzone {
+      padding: 2rem;
+      cursor: pointer;
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .image-previews {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+
+    .preview-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 2px solid var(--accent);
+    }
+
+    /* Popup Styling */
+    .popup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-box {
+      background: #222;
+      padding: 2rem;
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+    }
+
+    .primary-btn {
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--accent);
+      color: #111;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">
+      <i class="fas fa-tshirt"></i> <h1>ClosetVerse</h1>
+    </div>
+    <div>
+      <button class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon"></i></button>
+      <button class="logout-btn" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
+    </div>
+  </nav>
+
+  <div id="welcomePopup" class="popup-overlay">
+    <div class="popup-box">
+      <h2>Welcome to ClosetVerse <span class="wave-emoji">👋</span></h2>
+      <p>Your AI stylist is ready!</p>
+      <button class="primary-btn" onclick="closePopup()">Let’s Go</button>
+    </div>
+  </div>
+
+  <div class="dashboard-container">
+    <div class="dashboard-box">
+      <h2 class="welcome-message">Hello, <span id="user-name">Sujal</span> 👋</h2>
+
+      <div class="dashboard-features">
+        <div class="feature-card" onclick="showOutfitSuggestions()">
+          <i class="fas fa-magic"></i>
+          <h3>Outfit Suggestions</h3>
+          <p>Let AI style you!</p>
+        </div>
+        <div class="feature-card" onclick="triggerFileInput()">
+          <i class="fas fa-plus"></i>
+          <h3>Add Clothes</h3>
+          <p>Expand your wardrobe</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-calendar-alt"></i>
+          <h3>Style Scheduler</h3>
+          <p>Plan your looks</p>
+        </div>
+        <div class="feature-card">
+          <i class="fas fa-tags"></i>
+          <h3>Enhance With Brands</h3>
+          <p>Discover trends</p>
+        </div>
+      </div>
+
+      <div id="upload-section">
+        <input type="file" id="fileInput" multiple accept="image/*" hidden onchange="handleFiles(this.files)" />
+        <div id="dropzone" onclick="triggerFileInput()">
+          <i class="fas fa-cloud-upload-alt upload-icon"></i>
+          <p>Drag & Drop Clothing Images</p>
+        </div>
+        <div id="previewArea" class="image-previews"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const userNameSpan = document.getElementById('user-name');
+    const welcomePopup = document.getElementById('welcomePopup');
+
+    function closePopup() {
+      welcomePopup.style.display = "none";
+    }
+
+    function logout() {
+      alert("You’ve been logged out!");
+    }
+
+    function showOutfitSuggestions() {
+      alert("AI is generating outfit ideas...");
+    }
+
+    function triggerFileInput() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleFiles(files) {
+      const previewArea = document.getElementById('previewArea');
+      previewArea.innerHTML = '';
+      for (const file of files) {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.className = 'preview-img';
+          previewArea.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('light-mode');
+      const icon = document.querySelector('.theme-toggle i');
+      icon.classList.toggle('fa-sun');
+      icon.classList.toggle('fa-moon');
+    }
+  </script>
+</body>
+</html>

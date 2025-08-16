@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClosetVerse Onboarding</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #3a568a, #632525);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+    }
+
+    h2, h3 {
+      margin-bottom: 20px;
+    }
+
+    .question {
+      display: none;
+    }
+
+    .question.active {
+      display: block;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      background: #ff6b81;
+      color: white;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #ff4757;
+    }
+
+    .nav-btn {
+      background: #3742fa;
+    }
+
+    .nav-btn:hover {
+      background: #2f3542;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome to ClosetVerse 👗</h2>
+
+    <!-- Gender Question -->
+    <div class="question active" id="q1">
+      <p>Are you?</p>
+      <button onclick="selectGender('Male')">Male</button>
+      <button onclick="selectGender('Female')">Female</button>
+      <button onclick="selectGender('Other')">Other</button>
+    </div>
+
+    <!-- Male Questions -->
+    <div class="question" id="maleQ1">
+      <p>What's your preferred style?</p>
+      <button onclick="nextMale('Casual')">Casual</button>
+      <button onclick="nextMale('Formal')">Formal</button>
+      <button onclick="nextMale('Streetwear')">Streetwear</button>
+    </div>
+
+    <div class="question" id="maleQ2">
+      <p>Your favorite color?</p>
+      <button onclick="finish('Black')">Black</button>
+      <button onclick="finish('Blue')">Blue</button>
+      <button onclick="finish('Grey')">Grey</button>
+    </div>
+
+    <!-- Female Questions -->
+    <div class="question" id="femaleQ1">
+      <p>What's your preferred style?</p>
+      <button onclick="nextFemale('Elegant')">Elegant</button>
+      <button onclick="nextFemale('Trendy')">Trendy</button>
+      <button onclick="nextFemale('Ethnic')">Ethnic</button>
+    </div>
+
+    <div class="question" id="femaleQ2">
+      <p>Your favorite color?</p>
+      <button onclick="finish('Pink')">Pink</button>
+      <button onclick="finish('Red')">Red</button>
+      <button onclick="finish('Black')">Black</button>
+    </div>
+
+    <!-- Other/Common Questions -->
+    <div class="question" id="otherQ1">
+      <p>What's your preferred style?</p>
+      <button onclick="finish('Minimalist')">Minimalist</button>
+      <button onclick="finish('Trendy')">Trendy</button>
+      <button onclick="finish('Mix')">Mix</button>
+    </div>
+
+    <!-- Final -->
+    <div class="question" id="finalQ">
+      <h3>Thanks 🎉</h3>
+      <p>Your style preferences are saved!</p>
+      <button class="nav-btn" onclick="finishOnboarding()">Go to Dashboard</button>
+    </div>
+  </div>
+
+  <script>
+    let answers = { gender: "", style: "", color: "" };
+
+    function selectGender(g) {
+      answers.gender = g;
+      document.getElementById("q1").classList.remove("active");
+
+      if (g === "Male") {
+        document.getElementById("maleQ1").classList.add("active");
+      } else if (g === "Female") {
+        document.getElementById("femaleQ1").classList.add("active");
+      } else {
+        document.getElementById("otherQ1").classList.add("active");
+      }
+    }
+
+    // Male flow
+    function nextMale(style) {
+      answers.style = style;
+      document.getElementById("maleQ1").classList.remove("active");
+      document.getElementById("maleQ2").classList.add("active");
+    }
+
+    // Female flow
+    function nextFemale(style) {
+      answers.style = style;
+      document.getElementById("femaleQ1").classList.remove("active");
+      document.getElementById("femaleQ2").classList.add("active");
+    }
+
+    // Finish (for color choice)
+    function finish(color) {
+      answers.color = color;
+      document.querySelectorAll(".question").forEach(q => q.classList.remove("active"));
+      document.getElementById("finalQ").classList.add("active");
+    }
+
+    function finishOnboarding() {
+      console.log("User Preferences:", answers);
+      alert("Preferences saved: " + JSON.stringify(answers));
+      window.location.href = "dashboard.html"; // Redirect
+    }
+  </script>
+</body>
+</html>

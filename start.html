@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ClosetVerse | Your AI Stylist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to right, #3a568a, #632525);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 1.5rem 2rem;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .navbar h1 {
+      font-size: 1.8rem;
+      color: #f1f8f6;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+    .login-btn {
+      padding: 0.6rem 1.2rem;
+      background-color: #e5f3f0;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #121212;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-btn:hover {
+      background-color: #52e0c4;
+    }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      color: #ddd;
+    }
+
+    .features {
+      margin-top: 3rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+    }
+
+    .feature-box {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 1.5rem;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
+    }
+
+    .feature-box i {
+      font-size: 2rem;
+      color: #64ffda;
+      margin-bottom: 0.8rem;
+    }
+
+    .feature-box h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #aaa;
+      background-color: #111;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h1>ClosetVerse</h1>
+    <button class="login-btn" onclick="window.location.href='index.html'">Login</button>
+  </div>
+
+  <div class="hero">
+    <h2>Your Personal AI Stylist</h2>
+    <p>ClosetVerse helps you manage your digital wardrobe, generate AI-powered outfit suggestions, and plan your style schedule — all in one app.</p>
+
+    <div class="features">
+      <div class="feature-box">
+        <i class="fas fa-magic"></i>
+        <h4>AI Outfit Suggestions</h4>
+        <p>Get smart outfit ideas based on your uploaded clothes.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fas fa-calendar-alt"></i>
+        <h4>Style Scheduler</h4>
+        <p>Plan your looks for every day, event, or mood.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fas fa-plus"></i>
+        <h4>Closet Uploads</h4>
+        <p>Add and manage clothing pieces in your virtual closet.</p>
+      </div>
+      <div class="feature-box">
+        <i class="fas fa-tags"></i>
+        <h4>Brand Integration</h4>
+        <p>Discover recommended styles from brands you love.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    © 2025 ClosetVerse  
+  </div>
+</body>
+</html>
